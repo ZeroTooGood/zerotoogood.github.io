@@ -3,115 +3,158 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gourmet Getaway — Discover Local Flavours (Student Project)</title>
-  <meta name="description" content="Gourmet Getaway — demo site to discover restaurants, menus, and order inspiration. Student project inspired by food-tech platforms." />
-
-  <!-- Google Analytics (GA4) placeholder -->
+  <title>Gourmet Getaway — Discover Local Flavours</title>
+  <meta name="description" content="Gourmet Getaway — student demo site to discover restaurants, menus and ordering flows." />
+  <!-- GA (kept as provided) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6K6VWEHN1M"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} 
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-6K6VWEHN1M'); // replace with your ID
+    gtag('config', 'G-6K6VWEHN1M');
   </script>
 
   <style>
-    :root{--accent:#ff4d4f;--muted:#6b7280;--card:#ffffff;--bg1:#fbfcfd;--bg2:#fffaf7}
+    /* ---------- Root & reset ---------- */
+    :root{
+      --accent:#ff4d4f;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg1:#fbfcfd;
+      --bg2:#fffaf7;
+      --max-width:1100px;
+      --gap:10px;
+    }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Roboto,Arial;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#0f1724;min-height:100vh;transition:background .6s}
-    header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;position:sticky;top:0;z-index:90;background:rgba(255,255,255,0.8);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(16,24,40,0.06)}
-    .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:44px;height:44px;border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(16,24,40,0.06);}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,Roboto,Arial;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.38;
+    }
+
+    /* ---------- Header ---------- */
+    header{
+      position:sticky;top:0;z-index:120;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:8px 12px; /* reduced */
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(6px);
+      box-shadow:0 6px 18px rgba(16,24,40,0.04);
+    }
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:42px;height:42px;border-radius:10px;overflow:hidden;box-shadow:0 8px 18px rgba(16,24,40,0.04)}
     .logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .title{font-weight:800;font-size:17px;letter-spacing:0.2px}
-    nav a, nav button{color:var(--muted);text-decoration:none;margin:0 8px;transition:all .22s ease;background:none;border:none;font:inherit}
-    nav a:hover, nav button:hover{color:var(--accent);transform:translateY(-2px);cursor:pointer}
+    .title{font-weight:800;font-size:15px}
+    nav{display:flex;gap:8px;align-items:center}
+    nav a, nav button{color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-size:14px}
+    nav a:hover, nav button:hover{color:var(--accent);background:rgba(255,77,79,0.06)}
 
-    main{max-width:1150px;margin:10px auto;padding:6px 14px}
-    .search{display:flex;gap:8px;margin:8px 0;padding:10px;border-radius:10px;background:var(--card);box-shadow:0 8px 30px rgba(16,24,40,0.04);align-items:center}
-    .search input{flex:1;padding:8px 10px;border-radius:8px;border:1px solid #eef2f7;background:transparent;color:inherit;outline:none;font-size:14px}
-    .search button{padding:8px 10px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+    /* ---------- Main ---------- */
+    main{max-width:var(--max-width);margin:8px auto;padding:6px} /* tightened */
+    .search{display:flex;gap:8px;margin:6px 0;padding:8px;border-radius:10px;background:var(--card);box-shadow:0 8px 30px rgba(16,24,40,0.04);align-items:center}
+    .search input{flex:1;padding:8px 10px;border-radius:8px;border:1px solid #eef2f7;background:transparent;outline:none;font-size:14px;height:38px}
+    .search button{padding:8px 10px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;height:38px}
 
-    .controls{display:flex;gap:10px;align-items:center;margin:10px 0}
-    select{padding:8px 10px;border-radius:8px;background:transparent;border:1px solid #eef2f7;color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;margin:8px 0}
+    select{padding:8px 10px;border-radius:8px;background:transparent;border:1px solid #eef2f7;color:var(--muted);height:36px}
 
-    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-    .card{background:var(--card);padding:10px;border-radius:10px;position:relative;overflow:hidden;cursor:pointer;transition:transform .28s ease,box-shadow .28s ease}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(16,24,40,0.08)}
-    .thumb{width:100%;height:140px;border-radius:8px;object-fit:cover;display:block}
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px}
+    /* ---------- Card grid ---------- */
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+    .card{background:var(--card);padding:8px;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(16,24,40,0.07)}
+    .thumb{width:100%;height:120px;border-radius:8px;object-fit:cover;display:block}
+    .card h4{margin:6px 0 2px;font-size:15px}
+    .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
 
+    /* ---------- Pages ---------- */
+    .page{opacity:0;transform:translateY(3px);transition:all .2s ease;min-height:40px;padding:6px 0}
+    .page.active{opacity:1;transform:none}
     .float{position:absolute;right:-40px;top:6px;font-weight:800;color:rgba(0,0,0,0.03);font-size:46px;transform:rotate(-20deg);pointer-events:none}
 
-    /* page transitions */
-    .page{opacity:0;transform:translateY(4px);transition:all .28s ease;min-height:120px;padding-bottom:18px;padding-top:6px} /* tightened top spacing here */
-    .page.active{opacity:1;transform:none}
+    /* ---------- Menu grid & cards ---------- */
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-top:6px}
+    .menu-card{background:linear-gradient(180deg,#fff,#fff);padding:8px;border-radius:8px;border:1px solid #f1f5f9;display:flex;flex-direction:column;gap:6px}
+    .menu-card img{width:100%;height:86px;object-fit:cover;border-radius:6px}
+    .menu-card strong{font-size:14px}
+    .menu-card .price{color:var(--muted);font-size:13px}
+    .menu-card button{margin-top:6px;padding:7px 9px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer}
 
-    /* Restaurant menu */
-    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:6px} /* reduced top gap for menu items */
-    .menu-card{background:linear-gradient(180deg,#fff,#fff);padding:8px;border-radius:8px;border:1px solid #f1f5f9}
-    .menu-card img{width:100%;height:110px;object-fit:cover;border-radius:6px}
-    .menu-card button{margin-top:8px;padding:7px 9px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer}
-
-    /* slide-in cart panel */
-    #cartPanel{position:fixed;right:0;top:0;height:100vh;width:360px;max-width:92%;background:#fff;border-left:1px solid #eef2f7;box-shadow:-18px 0 60px rgba(16,24,40,0.12);padding:18px;z-index:999;transform:translateX(110%);transition:transform .34s cubic-bezier(.2,.9,.3,1);overflow:auto}
+    /* ---------- Cart panel & cart page ---------- */
+    #cartOverlay{position:fixed;inset:0;background:rgba(255,255,255,0.22);backdrop-filter:blur(6px);z-index:995;opacity:0;pointer-events:none;transition:opacity .22s}
+    #cartOverlay.show{opacity:1;pointer-events:all}
+    #cartPanel{position:fixed;right:0;top:0;height:100vh;width:360px;max-width:92%;background:#fff;border-left:1px solid #eef2f7;box-shadow:-18px 0 60px rgba(16,24,40,0.12);padding:12px;z-index:999;transform:translateX(110%);transition:transform .28s cubic-bezier(.2,.9,.3,1);overflow:auto}
     #cartPanel.show{transform:translateX(0)}
-    #cartPanel h3{margin:0 0 8px 0}
-    #cartPanel .close-x{position:absolute;right:12px;top:8px;background:transparent;border:none;font-size:20px;cursor:pointer}
-    .cart-item{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #f3f6f9}
+    .cart-item{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #f3f6f9}
     .cart-item img{width:64px;height:48px;object-fit:cover;border-radius:6px}
-    .cart-summary{margin-top:12px}
+    .cart-summary{margin-top:8px}
     .coupon-row{display:flex;gap:8px;margin-top:8px}
     .coupon-row input{flex:1;padding:8px;border-radius:8px;border:1px solid #eef2f7}
     .coupon-row button{padding:8px 10px;border-radius:8px;border:none;background:var(--accent);color:#fff}
 
-    .payments{margin-top:12px}
-    .payments label{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;border:1px solid #f1f5f9;margin-top:6px;cursor:pointer}
+    /* ---------- Cart page (route) ---------- */
+    #cartPage .content{padding:6px;background:var(--card);border-radius:8px;box-shadow:0 6px 20px rgba(16,24,40,0.04)}
+    .cart-list{margin-top:6px}
 
-    /* overlay blur when cart open */
-    #cartOverlay{position:fixed;inset:0;background:rgba(255,255,255,0.25);backdrop-filter:blur(6px);z-index:995;opacity:0;pointer-events:none;transition:opacity .25s}
-    #cartOverlay.show{opacity:1;pointer-events:all}
+    /* ---------- Social icons & popup ---------- */
+    .social-float{position:fixed;left:10px;bottom:10px;display:flex;flex-direction:column;gap:8px;z-index:990}
+    .social-float a{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.98);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(16,24,40,0.06);text-decoration:none}
+    .social-float svg{width:18px;height:18px;fill:#111}
 
-    /* floating social icons */
-    .social-float{position:fixed;left:12px;bottom:12px;display:flex;flex-direction:column;gap:8px;z-index:990}
-    .social-float a{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(16,24,40,0.06);text-decoration:none}
-    .social-float img{width:20px;height:20px}
+    .purchase-popup{position:fixed;left:18px;bottom:64px;background:rgba(255,255,255,0.98);color:#0f1724;padding:10px 12px;border-radius:10px;box-shadow:0 18px 40px rgba(16,24,40,0.12);z-index:996;min-width:200px;font-size:13px}
 
-    /* purchase popup (above social icons) */
-    .purchase-popup{position:fixed;left:18px;bottom:80px;background:rgba(255,255,255,0.98);color:#0f1724;padding:10px 12px;border-radius:10px;box-shadow:0 18px 40px rgba(16,24,40,0.12);z-index:996;min-width:200px}
+    /* ---------- Footer ---------- */
+    footer{padding:8px;text-align:center;color:var(--muted);margin-top:8px;font-size:13px}
 
-    footer{padding:12px;text-align:center;color:var(--muted);margin-top:18px;font-size:13px}
-
-    /* responsive */
-    @media (max-width:880px){#cartPanel{width:92vw} .thumb{height:120px} .menu-card img{height:96px}}
+    /* ---------- Small screens ---------- */
+    @media (max-width:880px){
+      header{padding:8px 10px}
+      .thumb{height:100px}
+      .menu-card img{height:80px}
+      .card-grid{gap:8px}
+      .menu-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+      main{padding:6px}
+    }
+    @media (max-width:480px){
+      .title{font-size:14px}
+      nav a{font-size:13px;padding:6px}
+      #cartPanel{width:92vw}
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="brand">
-      <div class="logo" aria-hidden="true"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=60" alt="burger logo"/></div>
+      <div class="logo" aria-hidden="true">
+        <!-- burger logo (Pexels) -->
+        <img src="https://images.pexels.com/photos/163956/pexels-photo-163956.jpeg?auto=compress&cs=tinysrgb&h=200" alt="logo">
+      </div>
       <div>
         <div class="title">Gourmet Getaway</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px">Student demo • Discover local flavours</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Student project • Learn web design & digital marketing</div>
       </div>
     </div>
+
     <nav aria-label="main navigation">
       <a href="#home" data-route="home">Home</a>
       <a href="#about" data-route="about">About</a>
       <a href="#contact" data-route="contact">Contact</a>
-      <button id="openCart" class="cart-btn" title="Open cart" aria-label="Open cart">
-        Cart <span id="cartCount" class="cart-count">0</span>
-      </button>
+      <a href="#cart" data-route="cart" id="navCart">Cart <span id="cartCount" style="background:var(--accent);color:#fff;padding:2px 6px;border-radius:999px;font-size:12px;margin-left:6px">0</span></a>
     </nav>
   </header>
 
   <main>
-    <div class="search">
-      <input id="query" placeholder="Search restaurant or cuisine (e.g., Saffron Biryani)" />
-      <button id="btnSearch">Search</button>
+    <!-- Search -->
+    <div class="search" role="search">
+      <input id="query" placeholder="Search restaurant or cuisine (e.g., Saffron Biryani)" aria-label="Search restaurants or cuisine" />
+      <button id="btnSearch" aria-label="Search button">Search</button>
     </div>
 
+    <!-- Controls -->
     <div class="controls">
       <select id="cuisineFilter" aria-label="Cuisine filter">
         <option value="">All cuisines</option>
@@ -121,6 +164,8 @@
         <option value="Italian">Italian</option>
         <option value="Cafe">Cafe</option>
         <option value="Japanese">Japanese</option>
+        <option value="French">French</option>
+        <option value="Thai">Thai</option>
       </select>
 
       <select id="sortFilter" aria-label="Sort filter">
@@ -128,155 +173,261 @@
         <option value="costAsc">Cost: Low to High</option>
       </select>
 
-      <div style="margin-left:auto;color:var(--muted);font-size:13px">Demo data • click a card to view menu</div>
+      <div style="margin-left:auto;color:var(--muted);font-size:13px"></div>
     </div>
 
+    <!-- Home -->
     <section id="home" class="page active">
       <div class="card-grid" id="results" aria-live="polite"></div>
-      <div class="float">GOURMET</div>
+      <div class="float" aria-hidden="true">GOURMET</div>
     </section>
 
+    <!-- Restaurant / Menu page -->
     <section id="restaurantPage" class="page" aria-hidden="true"></section>
-    <section id="aboutPage" class="page" aria-hidden="true">
-      <h2>About Gourmet Getaway</h2>
-      <p>Gourmet Getaway is a student-built demo site created to learn website design, analytics integration, SEO, social media linking, and simple e-commerce interactions. It is inspired by food-tech platforms and is for educational use only.</p>
+
+    <!-- Cart route page -->
+    <section id="cartPage" class="page" aria-hidden="true">
+      <h2 style="margin:6px 0">Your Cart</h2>
+      <div class="content" style="margin-top:6px">
+        <div id="cartPageItems" class="cart-list"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><strong>Subtotal</strong><div id="cartPageSubtotal">₹0</div></div>
+        <div class="coupon-row" style="margin-top:8px">
+          <input id="cartPageCoupon" placeholder="Coupon code (WELCOME10)" />
+          <button id="cartPageApply">Apply</button>
+        </div>
+        <div style="margin-top:8px;color:var(--muted)">Discount: <span id="cartPageCouponVal">₹0</span></div>
+        <div class="payments" style="margin-top:8px">
+          <div style="font-weight:600;margin-bottom:6px">Payment method</div>
+          <label><input type="radio" name="payPage" value="card" checked/> Credit / Debit Card</label>
+          <label><input type="radio" name="payPage" value="upi"/> UPI</label>
+          <label><input type="radio" name="payPage" value="cod"/> Cash on Delivery</label>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <strong>Total</strong><div id="cartPageTotal">₹0</div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+          <button id="cartPageClear">Clear</button>
+          <button id="cartPagePlace" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px">Place Order</button>
+        </div>
+      </div>
     </section>
 
+    <!-- About -->
+    <section id="aboutPage" class="page" aria-hidden="true">
+      <h2 style="margin:6px 0">About Gourmet Getaway</h2>
+      <p style="margin-top:6px;line-height:1.45">
+        Gourmet Getaway is a student-built demonstration website inspired by modern food-tech apps like Zomato. This project was created as a hands-on learning exercise to practice responsive web design, analytics (Google Analytics) setup, SEO basics (meta tags and alt text), social media integration, and simple e-commerce flows such as menus, cart management, coupon application and checkout options. The site is intended for educational use — it demonstrates UI/UX patterns, user flows, and tracking practices so students can understand how front-end interfaces connect with analytics and digital marketing strategies. Use the search, filters, and menus to explore how a food ordering front-end behaves.
+      </p>
+    </section>
+
+    <!-- Contact -->
     <section id="contactPage" class="page" aria-hidden="true">
-      <h2>Contact & Support</h2>
-      <p style="margin-top:6px">For official contact options, visit <a href="https://www.zomato.com/contact" target="_blank" rel="noopener">https://www.zomato.com/contact</a>.</p>
+      <h2 style="margin:6px 0">Contact & Support</h2>
+      <p style="margin-top:6px">For official contact options visit: <a href="https://www.zomato.com/contact" target="_blank" rel="noopener">https://www.zomato.com/contact</a></p>
       <p style="margin-top:6px">Email (demo): student@example.com</p>
     </section>
 
+    <!-- Invalid -->
     <section id="invalidPage" class="page" aria-hidden="true">
-      <h2>Invalid</h2>
-      <p style="margin-top:6px">The restaurant you searched for was not found. Try another name or browse from the home page.</p>
-      <button id="backHome">Back to Home</button>
+      <h2 style="margin:6px 0">Invalid</h2>
+      <p style="margin-top:6px">The restaurant you searched for was not found. Try another name or browse below.</p>
+      <div style="margin-top:8px"><button id="backHome">Back to Home</button></div>
     </section>
 
-    <!-- Cart Overlay for blur -->
+    <!-- Cart overlay & slide panel -->
     <div id="cartOverlay" aria-hidden="true"></div>
-
-    <!-- slide-in Cart Panel (single-page) -->
-    <div id="cartPanel" style="position:fixed;right:0;top:0;height:100vh;width:360px;max-width:92%;background:#fff;border-left:1px solid #eef2f7;box-shadow:-18px 0 60px rgba(16,24,40,0.12);padding:18px;z-index:999;transform:translateX(110%);transition:transform .34s cubic-bezier(.2,.9,.3,1);overflow:auto">
-      <button class="close-x" id="closeCart">×</button>
-      <h3>Your Cart</h3>
-      <div id="cartItems" style="max-height:56vh;overflow:auto"></div>
-
+    <aside id="cartPanel" aria-hidden="true">
+      <button id="closeCart" style="float:right;background:transparent;border:0;font-size:20px;cursor:pointer">×</button>
+      <h3 style="margin:6px 0">Cart</h3>
+      <div id="cartItems" style="max-height:52vh;overflow:auto"></div>
       <div class="cart-summary">
-        <div style="display:flex;justify-content:space-between;align-items:center"><strong>Subtotal</strong><div id="cartSubtotal">₹0</div></div>
-        <div style="margin-top:6px" class="coupon-row">
-          <input id="couponCode" placeholder="Enter coupon (e.g., WELCOME10)" />
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><strong>Subtotal</strong><div id="cartSubtotal">₹0</div></div>
+        <div class="coupon-row">
+          <input id="couponCode" placeholder="Enter coupon (WELCOME10)" />
           <button id="applyCoupon">Apply</button>
         </div>
-        <div style="margin-top:8px;color:var(--muted);font-size:13px">Discount: <span id="couponVal">₹0</span></div>
-        <div class="payments">
-          <div style="font-weight:600;margin-top:8px">Payment method</div>
-          <label><input type="radio" name="pay" value="card" checked/> Credit / Debit Card</label>
+        <div style="margin-top:8px;color:var(--muted)">Discount: <span id="couponVal">₹0</span></div>
+        <div style="margin-top:8px">
+          <div style="font-weight:600;margin-bottom:6px">Payment method</div>
+          <label><input type="radio" name="pay" value="card" checked/> Card</label>
           <label><input type="radio" name="pay" value="upi"/> UPI</label>
           <label><input type="radio" name="pay" value="cod"/> Cash on Delivery</label>
         </div>
-
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
           <strong>Total</strong><div id="cartTotal">₹0</div>
         </div>
-
-        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <div style="margin-top:10px;display:flex;gap:8px;justify-content:flex-end">
           <button id="clearCart">Clear</button>
-          <button id="placeOrder" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px">Place Order</button>
+          <button id="checkoutBtn" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px">Checkout</button>
         </div>
       </div>
-    </div>
-
+    </aside>
   </main>
 
-  <!-- Floating social icons -->
+  <!-- social icons (SVG inline so they load reliably) -->
   <div class="social-float" aria-hidden="false">
-    <a href="https://www.instagram.com/zomato" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="ig"/></a>
-    <a href="https://www.linkedin.com/in/aarnav-suresh-zero" target="_blank" rel="noopener" title="LinkedIn"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="linkedin"/></a>
-    <a href="https://x.com/zomatocare" target="_blank" rel="noopener" title="Twitter/X"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="x"/></a>
-    <a href="https://www.facebook.com/zomato/" target="_blank" rel="noopener" title="Facebook"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="fb"/></a>
+    <a href="https://www.instagram.com/zomato" target="_blank" rel="noopener" title="Instagram">
+      <!-- instagram svg -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm5.2-1.7a1.05 1.05 0 1 0 1.05 1.05A1.05 1.05 0 0 0 17.2 5.8z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/aarnav-suresh-zero" target="_blank" rel="noopener" title="LinkedIn">
+      <!-- linkedin svg -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5a2.5 2.5 0 11.02 0H5v17h-1V3.5h.98zM3 8h2v10H3zM9 8h1.9v1.4h.03c.26-.49 1-1.26 2.06-1.26 2.2 0 2.6 1.45 2.6 3.33V18h-2V12.8c0-1.25-.02-2.86-1.74-2.86-1.74 0-2.01 1.36-2.01 2.76V18H9z"/></svg>
+    </a>
+    <a href="https://x.com/zomatocare" target="_blank" rel="noopener" title="Twitter/X">
+      <!-- twitter svg -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 5.9a8.1 8.1 0 01-2.36.65A4.07 4.07 0 0021.4 4c-.8.48-1.68.83-2.62 1A4.09 4.09 0 0015.5 4c-2.28 0-4.13 1.86-4.13 4.15 0 .32.03.64.1.94C8.1 9.01 5.3 7.4 3.36 5a4.08 4.08 0 00-.56 2.09c0 1.44.73 2.7 1.84 3.44a4.09 4.09 0 01-1.87-.52v.05c0 2.02 1.44 3.7 3.35 4.08-.35.1-.73.15-1.12.15-.28 0-.55-.03-.82-.08a4.15 4.15 0 003.86 2.9A8.22 8.22 0 012 19.54 11.6 11.6 0 008.29 21c7.55 0 11.68-6.3 11.68-11.77 0-.18 0-.36-.01-.53A8.36 8.36 0 0022 5.9z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/zomato/" target="_blank" rel="noopener" title="Facebook">
+      <!-- facebook svg -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.07C22 6.6 17.52 2 12 2S2 6.6 2 12.07c0 4.99 3.66 9.12 8.44 9.95v-7.05H7.9v-2.9h2.54V9.84c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.62.77-1.62 1.56v1.87h2.77l-.44 2.9h-2.33V22c4.78-.83 8.44-4.96 8.44-9.93z"/></svg>
+    </a>
   </div>
 
-  <!-- container for purchase popups -->
+  <!-- popups container -->
   <div id="purchasePopupsContainer"></div>
 
   <footer>
-    <div>© Gourmet Getaway — Student Project • Not for commercial use</div>
-    <div style="margin-top:8px;color:var(--muted)">Follow: Instagram • LinkedIn • Twitter/X • Facebook</div>
+    <div style="color:var(--muted);font-size:13px">© Gourmet Getaway — Student Project</div>
   </footer>
 
   <script>
-    // Expanded dataset (original 10 + 2 new restaurants appended)
+    /* ================= Dataset (Pexels/Unsplash unique images) ================= */
     const DATA = [
-      {id:1,name:'The Spice Hub',cuisine:'Indian',rating:4.5,cost:350,img:'https://images.unsplash.com/photo-1600628422012-9e7c72b82b09?auto=format&fit=crop&w=800&q=60',alt:'The Spice Hub interior',menu:[
-        {item:'Hyderabadi Biryani',price:220,img:'https://images.unsplash.com/photo-1604908177089-5a3f3c1d7a1c?auto=format&fit=crop&w=600&q=60'},{item:'Butter Chicken',price:260,img:'https://images.unsplash.com/photo-1604908177079-6e8b4d7f1c3b?auto=format&fit=crop&w=600&q=60'},{item:'Paneer Tikka',price:180,img:'https://images.unsplash.com/photo-1604908554022-3a4f9a1f7e2d?auto=format&fit=crop&w=600&q=60'},{item:'Masala Dosa',price:140,img:'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=600&q=60'},{item:'Dal Makhani',price:150,img:'https://images.unsplash.com/photo-1604908177079-2b4f9d7f1c3b?auto=format&fit=crop&w=600&q=60'},{item:'Rogan Josh',price:300,img:'https://images.unsplash.com/photo-1546069901-eacef0df6022?auto=format&fit=crop&w=600&q=60'},{item:'Tandoori Roti',price:30,img:'https://images.unsplash.com/photo-1546549030-6a32a9f9f1f0?auto=format&fit=crop&w=600&q=60'},{item:'Gulab Jamun',price:80,img:'https://images.unsplash.com/photo-1563805042-7684d6e6f7a7?auto=format&fit=crop&w=600&q=60'},{item:'Lassi',price:70,img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=60'},{item:'Kheer',price:90,img:'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=60'}
+      {id:1,name:'The Spice Hub',cuisine:'Indian',rating:4.5,cost:350,img:'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg',menu:[
+        {item:'Hyderabadi Biryani',price:220,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Butter Chicken',price:260,img:'https://images.pexels.com/photos/4109994/pexels-photo-4109994.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Paneer Tikka',price:180,img:'https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Masala Dosa',price:140,img:'https://images.pexels.com/photos/209540/pexels-photo-209540.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Dal Makhani',price:150,img:'https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Rogan Josh',price:300,img:'https://images.pexels.com/photos/7097/food-dinner-lunch-restaurant.jpg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Tandoori Roti',price:30,img:'https://images.pexels.com/photos/556414/pexels-photo-556414.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Gulab Jamun',price:80,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Lassi',price:70,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Kheer',price:90,img:'https://images.pexels.com/photos/1030939/pexels-photo-1030939.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:2,name:'Burger Beam',cuisine:'Fast Food',rating:4.2,cost:220,img:'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=60',alt:'Burger and fries',menu:[
-        {item:'Classic Beef Burger',price:180,img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=60'},{item:'Cheese Burst Burger',price:210,img:'https://images.unsplash.com/photo-1550547660-8e3b2a0e3f3b?auto=format&fit=crop&w=600&q=60'},{item:'Veggie Burger',price:150,img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=60'},{item:'Chicken Wings',price:200,img:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=60'},{item:'Fries',price:80,img:'https://images.unsplash.com/photo-1571091718767-18a73a6a5c15?auto=format&fit=crop&w=600&q=60'},{item:'Onion Rings',price:90,img:'https://images.unsplash.com/photo-1568901346375-2b4e9a0f58cd?auto=format&fit=crop&w=600&q=60'},{item:'Milkshake',price:120,img:'https://images.unsplash.com/photo-1585432952240-1d5c7f0a3d3b?auto=format&fit=crop&w=600&q=60'},{item:'Soda',price:50,img:'https://images.unsplash.com/photo-1562711013-6b6f3c1b4f6a?auto=format&fit=crop&w=600&q=60'},{item:'Double Patty Burger',price:260,img:'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=60'},{item:'BBQ Burger',price:230,img:'https://images.unsplash.com/photo-1544025162-3b6f9c7d9c5f?auto=format&fit=crop&w=600&q=60'}
+      {id:2,name:'Burger Beam',cuisine:'Fast Food',rating:4.2,cost:220,img:'https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Classic Beef Burger',price:180,img:'https://images.pexels.com/photos/163956/pexels-photo-163956.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Cheese Burst Burger',price:210,img:'https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Veggie Burger',price:150,img:'https://images.pexels.com/photos/1401664/pexels-photo-1401664.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Chicken Wings',price:200,img:'https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Fries',price:80,img:'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Onion Rings',price:90,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Milkshake',price:120,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Soda',price:50,img:'https://images.unsplash.com/photo-1542444459-db3d3f1a3d3f?auto=format&fit=crop&w=400&q=60'},
+        {item:'Double Patty Burger',price:260,img:'https://images.pexels.com/photos/8136/food-dinner-restaurant-meal.jpg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'BBQ Burger',price:230,img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=60'}
       ]},
-      {id:3,name:'Dragon Palace',cuisine:'Chinese',rating:4.6,cost:420,img:'https://images.unsplash.com/photo-1604908177079-6e8b4d7f1c3b?auto=format&fit=crop&w=800&q=60',alt:'Chinese platter',menu:[
-        {item:'Schezuan Noodles',price:220,img:'https://images.unsplash.com/photo-1543353071-087092ec393f?auto=format&fit=crop&w=600&q=60'},{item:'Kung Pao Chicken',price:300,img:'https://images.unsplash.com/photo-1604908177089-1a3f3d1d7a1c?auto=format&fit=crop&w=600&q=60'},{item:'Veg Manchurian',price:180,img:'https://images.unsplash.com/photo-1606756793406-6c6f9f9f3f3b?auto=format&fit=crop&w=600&q=60'},{item:'Fried Rice',price:160,img:'https://images.unsplash.com/photo-1587391954984-9b7d6f6c6c6c?auto=format&fit=crop&w=600&q=60'},{item:'Chilli Prawn',price:380,img:'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=60'},{item:'Hot & Sour Soup',price:120,img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=60'},{item:'Spring Rolls',price:110,img:'https://images.unsplash.com/photo-1559718066-5c1b6aef3b9b?auto=format&fit=crop&w=600&q=60'},{item:'Honey Chilli Potato',price:150,img:'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=600&q=60'},{item:'Hakka Noodles',price:200,img:'https://images.unsplash.com/photo-1553621042-6e5b8a3f6b7c?auto=format&fit=crop&w=600&q=60'},{item:'Gobi 65',price:170,img:'https://images.unsplash.com/photo-1553621042-3b9b8a7f6a6b?auto=format&fit=crop&w=600&q=60'}
+      {id:3,name:'Dragon Palace',cuisine:'Chinese',rating:4.6,cost:420,img:'https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Schezuan Noodles',price:220,img:'https://images.pexels.com/photos/357573/pexels-photo-357573.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Kung Pao Chicken',price:300,img:'https://images.pexels.com/photos/46239/sichuan-chicken-46239.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Veg Manchurian',price:180,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Fried Rice',price:160,img:'https://images.pexels.com/photos/357575/pexels-photo-357575.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Chilli Prawn',price:380,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Hot & Sour Soup',price:120,img:'https://images.pexels.com/photos/1111303/pexels-photo-1111303.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Spring Rolls',price:110,img:'https://images.unsplash.com/photo-1559718066-5c1b6aef3b9b?auto=format&fit=crop&w=400&q=60'},
+        {item:'Honey Chilli Potato',price:150,img:'https://images.pexels.com/photos/414645/pexels-photo-414645.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Hakka Noodles',price:200,img:'https://images.unsplash.com/photo-1553621042-6e5b8a3f6b7c?auto=format&fit=crop&w=400&q=60'},
+        {item:'Gobi 65',price:170,img:'https://images.pexels.com/photos/92707/pexels-photo-92707.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:4,name:'Saffron Biryani',cuisine:'Indian',rating:4.7,cost:300,img:'https://images.unsplash.com/photo-1604908177089-5a3f3c1d7a1c?auto=format&fit=crop&w=800&q=60',alt:'Biryani bowl',menu:[
-        {item:'Kolkata Biryani',price:240,img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=60'},{item:'Lucknowi Biryani',price:260,img:'https://images.unsplash.com/photo-1544025162-6c6f9f9f3f3b?auto=format&fit=crop&w=600&q=60'},{item:'Cheese Naan',price:90,img:'https://images.unsplash.com/photo-1544025162-3b6f9c7d9c5f?auto=format&fit=crop&w=600&q=60'},{item:'Kebab Platter',price:320,img:'https://images.unsplash.com/photo-1544025162-7f6a9c7d9d5f?auto=format&fit=crop&w=600&q=60'},{item:'Mirchi Ka Salan',price:120,img:'https://images.unsplash.com/photo-1544025162-1a6f9c7d9a5f?auto=format&fit=crop&w=600&q=60'},{item:'Raita',price:40,img:'https://images.unsplash.com/photo-1544025162-4a6f9c7d9c5a?auto=format&fit=crop&w=600&q=60'},{item:'Chicken 65',price:180,img:'https://images.unsplash.com/photo-1544025162-9f6f9c7d6c5a?auto=format&fit=crop&w=600&q=60'},{item:'Mutton Biryani',price:340,img:'https://images.unsplash.com/photo-1544025162-8f6f9c7d8b5a?auto=format&fit=crop&w=600&q=60'},{item:'Veg Biryani',price:180,img:'https://images.unsplash.com/photo-1544025162-2f6f9c7d7a5b?auto=format&fit=crop&w=600&q=60'},{item:'Phirni',price:100,img:'https://images.unsplash.com/photo-1544025162-6e6f9c7d5a5a?auto=format&fit=crop&w=600&q=60'}
+      {id:4,name:'Saffron Biryani',cuisine:'Indian',rating:4.7,cost:300,img:'https://images.pexels.com/photos/4910320/pexels-photo-4910320.jpeg',menu:[
+        {item:'Kolkata Biryani',price:240,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Lucknowi Biryani',price:260,img:'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Cheese Naan',price:90,img:'https://images.pexels.com/photos/37347/bread-food-delicious-healthy-37347.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Kebab Platter',price:320,img:'https://images.pexels.com/photos/696218/pexels-photo-696218.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Mirchi Ka Salan',price:120,img:'https://images.pexels.com/photos/283347/pexels-photo-283347.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Raita',price:40,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Chicken 65',price:180,img:'https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Mutton Biryani',price:340,img:'https://images.unsplash.com/photo-1544025162-8f6f9c7d8b5a?auto=format&fit=crop&w=400&q=60'},
+        {item:'Veg Biryani',price:180,img:'https://images.pexels.com/photos/2232/vegetables-italian-pizza-restaurant.jpg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Phirni',price:100,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:5,name:'Pizza Orbit',cuisine:'Fast Food',rating:4.3,cost:280,img:'https://images.unsplash.com/photo-1548365328-8f5d6b1d4e6f?auto=format&fit=crop&w=800&q=60',alt:'pizza hot from oven',menu:[
-        {item:'Margherita',price:220,img:'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Pepperoni',price:260,img:'https://images.unsplash.com/photo-1548365328-9e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Veggie Supreme',price:240,img:'https://images.unsplash.com/photo-1548365328-8e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Farmhouse',price:250,img:'https://images.unsplash.com/photo-1548365328-7e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'BBQ Chicken',price:300,img:'https://images.unsplash.com/photo-1548365328-6e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Garlic Bread',price:80,img:'https://images.unsplash.com/photo-1548365328-5e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Veggie Delight',price:210,img:'https://images.unsplash.com/photo-1548365328-4e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Paneer Tikka Pizza',price:270,img:'https://images.unsplash.com/photo-1548365328-3e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Cheesy Dip',price:60,img:'https://images.unsplash.com/photo-1548365328-2e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Tiramisu',price:140,img:'https://images.unsplash.com/photo-1548365328-1e0a16bb7366?auto=format&fit=crop&w=600&q=60'}
+      {id:5,name:'Pizza Orbit',cuisine:'Fast Food',rating:4.3,cost:280,img:'https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Margherita',price:220,img:'https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Pepperoni',price:260,img:'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Veggie Supreme',price:240,img:'https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Farmhouse',price:250,img:'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'BBQ Chicken',price:300,img:'https://images.pexels.com/photos/776619/pexels-photo-776619.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Garlic Bread',price:80,img:'https://images.pexels.com/photos/37347/bread-food-delicious-healthy-37347.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Veggie Delight',price:210,img:'https://images.pexels.com/photos/1401664/pexels-photo-1401664.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Paneer Tikka Pizza',price:270,img:'https://images.pexels.com/photos/1426719/pexels-photo-1426719.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Cheesy Dip',price:60,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Tiramisu',price:140,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:6,name:'Olive & Oak',cuisine:'Italian',rating:4.4,cost:320,img:'https://images.unsplash.com/photo-1546069901-eacef0df6022?auto=format&fit=crop&w=800&q=60',alt:'Italian dining',menu:[
-        {item:'Spaghetti Carbonara',price:300,img:'https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?auto=format&fit=crop&w=600&q=60'},{item:'Margherita Pizza',price:240,img:'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=60'},{item:'Pesto Pasta',price:260,img:'https://images.unsplash.com/photo-1526318472351-c75fcf070ee3?auto=format&fit=crop&w=600&q=60'},{item:'Garlic Prawns',price:380,img:'https://images.unsplash.com/photo-1542444459-db3d3f1a3d3f?auto=format&fit=crop&w=600&q=60'},{item:'Tiramisu',price:140,img:'https://images.unsplash.com/photo-1511393181719-cc1a6a7b5d5d?auto=format&fit=crop&w=600&q=60'}
+      {id:6,name:'Olive & Oak',cuisine:'Italian',rating:4.4,cost:320,img:'https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Spaghetti Carbonara',price:300,img:'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Margherita Pizza',price:240,img:'https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Pesto Pasta',price:260,img:'https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Garlic Prawns',price:380,img:'https://images.pexels.com/photos/326278/pexels-photo-326278.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Tiramisu',price:140,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:7,name:'Cuppa Corner',cuisine:'Cafe',rating:4.1,cost:180,img:'https://images.unsplash.com/photo-1517949908116-3d1c3cf5d3f3?auto=format&fit=crop&w=800&q=60',alt:'cozy cafe',menu:[
-        {item:'Cappuccino',price:120,img:'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=600&q=60'},{item:'Espresso',price:80,img:'https://images.unsplash.com/photo-1512346815606-1a9d4f5d5b5d?auto=format&fit=crop&w=600&q=60'},{item:'Blueberry Muffin',price:90,img:'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=600&q=60'},{item:'Avocado Toast',price:160,img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=60'},{item:'Iced Latte',price:140,img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=60'}
+      {id:7,name:'Cuppa Corner',cuisine:'Cafe',rating:4.1,cost:180,img:'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Cappuccino',price:120,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Espresso',price:80,img:'https://images.pexels.com/photos/414886/pexels-photo-414886.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Blueberry Muffin',price:90,img:'https://images.pexels.com/photos/907494/pexels-photo-907494.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Avocado Toast',price:160,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Iced Latte',price:140,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:8,name:'Sushi Stream',cuisine:'Japanese',rating:4.5,cost:420,img:'https://images.unsplash.com/photo-1541544180-eda4d3c5b3c3?auto=format&fit=crop&w=800&q=60',alt:'sushi counter',menu:[
-        {item:'Salmon Nigiri',price:220,img:'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=60'},{item:'Dragon Roll',price:320,img:'https://images.unsplash.com/photo-1546069901-5a8e5f6d6d6d?auto=format&fit=crop&w=600&q=60'},{item:'Miso Soup',price:80,img:'https://images.unsplash.com/photo-1542272605-6e0f5d6a6a6a?auto=format&fit=crop&w=600&q=60'},{item:'Sashimi Platter',price:480,img:'https://images.unsplash.com/photo-1542444459-db3d3f1a3d3f?auto=format&fit=crop&w=600&q=60'},{item:'Tempura',price:260,img:'https://images.unsplash.com/photo-1542444459-8b3d3f1a3d3f?auto=format&fit=crop&w=600&q=60'}
+      {id:8,name:'Sushi Stream',cuisine:'Japanese',rating:4.5,cost:420,img:'https://images.pexels.com/photos/271715/pexels-photo-271715.jpeg',menu:[
+        {item:'Salmon Nigiri',price:220,img:'https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Dragon Roll',price:320,img:'https://images.pexels.com/photos/2098087/pexels-photo-2098087.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Miso Soup',price:80,img:'https://images.pexels.com/photos/1111303/pexels-photo-1111303.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Sashimi Platter',price:480,img:'https://images.pexels.com/photos/2098087/pexels-photo-2098087.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Tempura',price:260,img:'https://images.pexels.com/photos/357573/pexels-photo-357573.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:9,name:'Taco Terrace',cuisine:'Fast Food',rating:4.0,cost:210,img:'https://images.unsplash.com/photo-1542834369-f10ebf06d3f8?auto=format&fit=crop&w=800&q=60',alt:'tacos',menu:[
-        {item:'Beef Taco',price:140,img:'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=600&q=60'},{item:'Chicken Quesadilla',price:180,img:'https://images.unsplash.com/photo-1511690743698-2d9b85f2fbf38?auto=format&fit=crop&w=600&q=60'},{item:'Nachos',price:160,img:'https://images.unsplash.com/photo-1511690743698-4d9b85f2fbf38?auto=format&fit=crop&w=600&q=60'},{item:'Guacamole',price:120,img:'https://images.unsplash.com/photo-1511690743698-6d9b85f2fbf38?auto=format&fit=crop&w=600&q=60'},{item:'Churros',price:90,img:'https://images.unsplash.com/photo-1511690743698-8d9b85f2fbf38?auto=format&fit=crop&w=600&q=60'}
+      {id:9,name:'Taco Terrace',cuisine:'Fast Food',rating:4.0,cost:210,img:'https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Beef Taco',price:140,img:'https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Chicken Quesadilla',price:180,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Nachos',price:160,img:'https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Guacamole',price:120,img:'https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Churros',price:90,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:10,name:'Green Bowl',cuisine:'Cafe',rating:4.2,cost:200,img:'https://images.unsplash.com/photo-1544025162-1a6f9c7d9a5f?auto=format&fit=crop&w=800&q=60',alt:'healthy bowl',menu:[
-        {item:'Quinoa Bowl',price:220,img:'https://images.unsplash.com/photo-1544025162-8f6f9c7d8b5a?auto=format&fit=crop&w=600&q=60'},{item:'Smoothie',price:140,img:'https://images.unsplash.com/photo-1544025162-2f6f9c7d7a5b?auto=format&fit=crop&w=600&q=60'},{item:'Grilled Veg Salad',price:160,img:'https://images.unsplash.com/photo-1544025162-6e6f9c7d5a5a?auto=format&fit=crop&w=600&q=60'},{item:'Protein Bowl',price:280,img:'https://images.unsplash.com/photo-1544025162-9f6f9c7d6c5a?auto=format&fit=crop&w=600&q=60'},{item:'Hummus Plate',price:120,img:'https://images.unsplash.com/photo-1544025162-4a6f9c7d9c5a?auto=format&fit=crop&w=600&q=60'}
+      {id:10,name:'Green Bowl',cuisine:'Cafe',rating:4.2,cost:200,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Quinoa Bowl',price:220,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Smoothie',price:140,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Grilled Veg Salad',price:160,img:'https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Protein Bowl',price:280,img:'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Hummus Plate',price:120,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-
-      /* === Two new restaurants added as requested === */
-      {id:11,name:'Paris Bistro',cuisine:'French',rating:4.4,cost:330,img:'https://images.unsplash.com/photo-1522040806054-0b3e9a7f7f0d?auto=format&fit=crop&w=800&q=60',alt:'Paris Bistro cozy',menu:[
-        {item:'Croissant',price:120,img:'https://images.unsplash.com/photo-1551218376-4b5b2b8b6b71?auto=format&fit=crop&w=600&q=60'},{item:'Quiche Lorraine',price:260,img:'https://images.unsplash.com/photo-1563805042-7684d6e6f7a7?auto=format&fit=crop&w=600&q=60'},{item:'Ratatouille',price:210,img:'https://images.unsplash.com/photo-1543353071-087092ec393f?auto=format&fit=crop&w=600&q=60'},{item:'Steak Frites',price:420,img:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=60'},{item:'French Onion Soup',price:160,img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=60'},{item:'Creme Brulee',price:200,img:'https://images.unsplash.com/photo-1547592166-8a8f6b2f7b5b?auto=format&fit=crop&w=600&q=60'},{item:'Baguette',price:50,img:'https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=600&q=60'},{item:'Escargot',price:330,img:'https://images.unsplash.com/photo-1586201375761-83865001b87e?auto=format&fit=crop&w=600&q=60'},{item:'Salade Niçoise',price:220,img:'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=600&q=60'},{item:'Tarte Tatin',price:190,img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=60'}
+      {id:11,name:'Paris Bistro',cuisine:'French',rating:4.4,cost:330,img:'https://images.pexels.com/photos/15738013/pexels-photo-15738013.jpeg',menu:[
+        {item:'Croissant',price:120,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Quiche Lorraine',price:260,img:'https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]},
-      {id:12,name:'Bangkok Bites',cuisine:'Thai',rating:4.5,cost:300,img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=60',alt:'Bangkok Bites street food',menu:[
-        {item:'Pad Thai',price:220,img:'https://images.unsplash.com/photo-1601924582971-3a4f9a1c7c33?auto=format&fit=crop&w=600&q=60'},{item:'Green Curry',price:260,img:'https://images.unsplash.com/photo-1542444459-8b3d3f1a3d3f?auto=format&fit=crop&w=600&q=60'},{item:'Tom Yum Soup',price:180,img:'https://images.unsplash.com/photo-1551218808-6463b7e6a5d0?auto=format&fit=crop&w=600&q=60'},{item:'Mango Sticky Rice',price:140,img:'https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?auto=format&fit=crop&w=600&q=60'},{item:'Pad See Ew',price:200,img:'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=600&q=60'},{item:'Chicken Satay',price:190,img:'https://images.unsplash.com/photo-1544025162-1a6f9c7d9a5f?auto=format&fit=crop&w=600&q=60'},{item:'Papaya Salad',price:150,img:'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=60'},{item:'Thai Fish Cakes',price:170,img:'https://images.unsplash.com/photo-1566753323558-f4e0952af115?auto=format&fit=crop&w=600&q=60'},{item:'Lemongrass Chicken',price:230,img:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=600&q=60'},{item:'Coconut Soup',price:160,img:'https://images.unsplash.com/photo-1542444459-db3d3f1a3d3f?auto=format&fit=crop&w=600&q=60'}
+      {id:12,name:'Bangkok Bites',cuisine:'Thai',rating:4.5,cost:300,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
+        {item:'Pad Thai',price:220,img:'https://images.pexels.com/photos/357573/pexels-photo-357573.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Green Curry',price:260,img:'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&h=400'}
       ]}
-
     ];
 
-    // App state
+    /* ================= App state ================= */
     let CART = JSON.parse(localStorage.getItem('gg_cart')||'[]');
-    let COUPON = {code:'WELCOME10',type:'percent',value:10};
+    const COUPON = {code:'WELCOME10',type:'percent',value:10};
     const resultsEl = document.getElementById('results');
-    const pages = {home:document.getElementById('home'),restaurant:document.getElementById('restaurantPage'),about:document.getElementById('aboutPage'),contact:document.getElementById('contactPage'),invalid:document.getElementById('invalidPage')};
+    const pages = {
+      home:document.getElementById('home'),
+      restaurant:document.getElementById('restaurantPage'),
+      about:document.getElementById('aboutPage'),
+      contact:document.getElementById('contactPage'),
+      invalid:document.getElementById('invalidPage'),
+      cart:document.getElementById('cartPage')
+    };
 
-    // render list
+    /* ================= Render listings ================= */
     function renderCards(list){
       resultsEl.innerHTML = list.map(r=>`
         <article class="card" data-id="${r.id}" tabindex="0">
-          <img class="thumb" src="${r.img}" alt="${r.alt}" loading="lazy" />
-          <h4 style="margin:6px 0">${r.name}</h4>
+          <img class="thumb" src="${r.img}" alt="${r.name}" loading="lazy" onerror="this.style.opacity=.6">
+          <h4>${r.name}</h4>
           <div class="meta"><div>${r.cuisine} • ₹${r.cost} avg</div><div>⭐ ${r.rating}</div></div>
         </article>
       `).join('');
-
-      document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{
-        const id = Number(c.dataset.id); navigateToRestaurant(id);
-      }));
+      document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{ navigateToRestaurant(Number(c.dataset.id)); }));
     }
-
     renderCards(DATA);
 
-    // filters
+    /* ================= Filters & Search ================= */
     document.getElementById('cuisineFilter').addEventListener('change', applyFilters);
     document.getElementById('sortFilter').addEventListener('change', applyFilters);
-
     function applyFilters(){
       const cuisine = document.getElementById('cuisineFilter').value;
       const sort = document.getElementById('sortFilter').value;
@@ -286,116 +437,216 @@
       renderCards(filtered);
       showPage('home');
     }
-
-    // search
     document.getElementById('btnSearch').addEventListener('click', ()=>{
       const q = document.getElementById('query').value.trim().toLowerCase();
       if(!q){ showPage('home'); return; }
       const found = DATA.find(r=> r.name.toLowerCase()===q || r.name.toLowerCase().includes(q) || r.cuisine.toLowerCase()===q);
-      if(found){ navigateToRestaurant(found.id); }
-      else{ showPage('invalid'); }
+      if(found) navigateToRestaurant(found.id);
+      else showPage('invalid');
     });
 
-    // navigation and rendering restaurant menu
-    function navigateToRestaurant(id){
-      const r = DATA.find(x=>x.id===id); if(!r) return showPage('invalid');
-      const container = document.getElementById('restaurantPage');
-      container.innerHTML = `
-        <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:6px"> <!-- reduced top gap -->
-          <img src="${r.img}" alt="${r.alt}" style="width:280px;height:160px;border-radius:10px;object-fit:cover;box-shadow:0 12px 30px rgba(16,24,40,0.06)"/>
-          <div style="flex:1;min-width:220px">
-            <h2 style="margin:4px 0">${r.name}</h2>
-            <p style="color:var(--muted);margin-top:6px">${r.cuisine} • ⭐ ${r.rating} • Avg ₹${r.cost}</p>
-            <p style="max-width:680px;margin-top:6px">Explore the menu and add items to your cart. Images shown are for demo purposes.</p>
-          </div>
-        </div>
-        <hr style="margin:10px 0;border:none;border-top:1px solid rgba(16,24,40,0.04)"/>
-        <div id="menuList" class="menu-grid"></div>
-        <div style="margin-top:10px"><button id="goHome">Back to Home</button></div>
-      `;
-
-      const menuList = document.getElementById('menuList');
-      menuList.innerHTML = r.menu.map((m,i)=>`
-        <div class="menu-card" data-idx="${i}">
-          <img src="${m.img}" alt="${m.item}" loading="lazy"/>
-          <strong style="display:block;margin-top:8px">${m.item}</strong>
-          <div style="color:var(--muted);margin-top:6px">Price: ₹${m.price}</div>
-          <div style="margin-top:8px"><button class="addToCartBtn" data-restaurant="${r.name}" data-item="${m.item}" data-price="${m.price}" data-img="${m.img}">Add to cart</button></div>
-        </div>
-      `).join('');
-
-      // animate in
-      Array.from(menuList.children).forEach((el,i)=>{ el.style.transform='translateY(6px)'; el.style.opacity='0'; setTimeout(()=>{ el.style.transition='all .28s ease'; el.style.transform='none'; el.style.opacity='1'}, 60*i); });
-
-      // add to cart handlers
-      document.querySelectorAll('.addToCartBtn').forEach(b=>b.addEventListener('click', ()=>{
-        const item = b.dataset.item; const price = Number(b.dataset.price); const restaurant = b.dataset.restaurant; const img = b.dataset.img;
-        CART.push({restaurant,item,price,qty:1,img}); saveCart(); renderCartCount(); openCart();
-      }));
-
-      document.getElementById('goHome').addEventListener('click',()=>showPage('home'));
-      showPage('restaurant');
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    // cart functions
-    function saveCart(){ localStorage.setItem('gg_cart', JSON.stringify(CART)); }
-    function renderCartCount(){ document.getElementById('cartCount').textContent = CART.reduce((s,i)=>s+i.qty,0); }
-
-    function renderCartPanel(){ const el = document.getElementById('cartItems'); if(!el) return; if(CART.length===0){ el.innerHTML='<div style="color:var(--muted)">Cart is empty</div>'; updateTotals(); return; }
-      el.innerHTML = CART.map((c,idx)=>`<div class="cart-item"><img src="${c.img||'https://images.unsplash.com/photo-1544025162-2f6f9c7d7a5b?auto=format&fit=crop&w=600&q=60'}" alt="${c.item}"/><div style="flex:1"><strong>${c.item}</strong><div style="color:var(--muted);font-size:13px">${c.restaurant}</div></div><div>₹${c.price}</div><div style="margin-left:6px"><button data-idx="${idx}" class="removeBtn">Remove</button></div></div>`).join('');
-      document.querySelectorAll('.removeBtn').forEach(btn=>btn.addEventListener('click', ()=>{ const i=Number(btn.dataset.idx); CART.splice(i,1); saveCart(); renderCartPanel(); renderCartCount(); }));
-      updateTotals();
-    }
-
-    function updateTotals(){ const subtotal = CART.reduce((s,i)=>s + i.price * i.qty,0); document.getElementById('cartSubtotal').textContent = '₹' + subtotal; const applied = Number(localStorage.getItem('gg_coupon_val')||0); document.getElementById('couponVal').textContent = '₹' + applied; const total = subtotal - applied; document.getElementById('cartTotal').textContent = '₹' + (total>0?total:0); }
-
-    function openCart(){ const panel=document.getElementById('cartPanel'); renderCartPanel(); panel.classList.add('show'); panel.style.transform='translateX(0)'; panel.setAttribute('aria-hidden','false'); document.getElementById('cartOverlay').classList.add('show'); }
-    function closeCart(){ const panel=document.getElementById('cartPanel'); panel.classList.remove('show'); panel.style.transform='translateX(110%)'; panel.setAttribute('aria-hidden','true'); document.getElementById('cartOverlay').classList.remove('show'); }
-
-    // coupon apply
-    document.getElementById('applyCoupon').addEventListener('click', ()=>{
-      const code = document.getElementById('couponCode').value.trim(); if(!code){ alert('Enter coupon code'); return; }
-      if(code.toUpperCase() === COUPON.code){ const subtotal = CART.reduce((s,i)=>s + i.price * i.qty,0); const val = Math.round((COUPON.value/100) * subtotal); localStorage.setItem('gg_coupon_val', val); alert('Coupon applied!'); updateTotals(); } else { alert('Invalid coupon'); }
-    });
-
-    // clear and place order
-    document.getElementById('clearCart').addEventListener('click', ()=>{ if(confirm('Clear cart?')){ CART=[]; saveCart(); renderCartPanel(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); }});
-    document.getElementById('placeOrder').addEventListener('click', ()=>{
-      if(CART.length===0){ alert('Cart is empty'); return; }
-      const pay = document.querySelector('input[name="pay"]:checked').value; alert('Order placed (demo). Payment method: ' + pay); CART=[]; saveCart(); renderCartPanel(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); closeCart();
-    });
-
-    // Cart button handlers
-    document.getElementById('openCart').addEventListener('click', ()=> openCart());
-    document.getElementById('closeCart').addEventListener('click', ()=> closeCart());
-
-    // initial cart render
-    renderCartCount(); renderCartPanel(); updateTotals();
-
-    // nav links
-    document.querySelectorAll('a[data-route]').forEach(a=>a.addEventListener('click', e=>{ e.preventDefault(); const route = a.getAttribute('data-route'); if(route==='home') showPage('home'); if(route==='about') showPage('about'); if(route==='contact') showPage('contact'); }));
-
-    function showPage(key){ Object.values(pages).forEach(p=>{ p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
+    /* ================= Navigation & Pages ================= */
+    document.querySelectorAll('a[data-route]').forEach(a=>a.addEventListener('click', e=>{
+      e.preventDefault();
+      const route = a.getAttribute('data-route');
+      if(route==='cart') showCartPage();
+      else showPage(route);
+    }));
+    function showPage(key){
+      Object.values(pages).forEach(p=>{ p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
       if(key==='home'){ pages.home.classList.add('active'); pages.home.setAttribute('aria-hidden','false'); }
       else if(key==='restaurant'){ pages.restaurant.classList.add('active'); pages.restaurant.setAttribute('aria-hidden','false'); }
       else if(key==='about'){ pages.about.classList.add('active'); pages.about.setAttribute('aria-hidden','false'); }
       else if(key==='contact'){ pages.contact.classList.add('active'); pages.contact.setAttribute('aria-hidden','false'); }
       else if(key==='invalid'){ pages.invalid.classList.add('active'); pages.invalid.setAttribute('aria-hidden','false'); }
+      // scroll top for clarity
+      window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    document.getElementById('backHome').addEventListener('click', ()=>showPage('home'));
+    /* ================= Restaurant page rendering ================= */
+    function navigateToRestaurant(id){
+      const r = DATA.find(x=>x.id===id); if(!r) return showPage('invalid');
+      const container = pages.restaurant;
+      container.innerHTML = `
+        <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-top:6px">
+          <img src="${r.img}" alt="${r.name}" style="width:260px;height:140px;border-radius:10px;object-fit:cover;box-shadow:0 8px 20px rgba(16,24,40,0.06)">
+          <div style="flex:1;min-width:200px">
+            <h2 style="margin:0 0 6px">${r.name}</h2>
+            <div style="color:var(--muted);font-size:14px">${r.cuisine} • ⭐ ${r.rating} • Avg ₹${r.cost}</div>
+            <p style="margin-top:6px;color:var(--muted);max-width:640px">Explore the menu and add items to your cart. Images are linked from Pexels/Unsplash.</p>
+          </div>
+        </div>
+        <hr style="margin:8px 0;border:none;border-top:1px solid rgba(16,24,40,0.04)"/>
+        <div id="menuList" class="menu-grid"></div>
+        <div style="margin-top:8px"><button id="goHomeBtn">Back to Home</button></div>
+      `;
+      const menuList = container.querySelector('#menuList');
+      menuList.innerHTML = r.menu.map((m,i)=>`
+        <div class="menu-card" data-idx="${i}">
+          <img src="${m.img}" alt="${m.item}" loading="lazy" onerror="this.style.opacity=.6"/>
+          <strong>${m.item}</strong>
+          <div class="price">Price: ₹${m.price}</div>
+          <div><button class="addToCartBtn" data-restaurant="${r.name}" data-item="${m.item}" data-price="${m.price}" data-img="${m.img}">Add to cart</button></div>
+        </div>
+      `).join('');
+      // attach handlers
+      menuList.querySelectorAll('.addToCartBtn').forEach(b=>b.addEventListener('click', ()=>{
+        const item = b.dataset.item, price = Number(b.dataset.price), restaurant = b.dataset.restaurant, img = b.dataset.img;
+        CART.push({restaurant,item,price,qty:1,img}); saveCart(); renderCartCount(); openCartPanel();
+      }));
+      container.querySelector('#goHomeBtn').addEventListener('click', ()=> showPage('home'));
+      showPage('restaurant');
+    }
 
-    // keyboard support
-    document.addEventListener('keydown', e=>{ if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('card')){ const id = Number(document.activeElement.dataset.id); navigateToRestaurant(id); } });
+    /* ================= Cart behaviour (panel + cart page) ================= */
+    const cartPanel = document.getElementById('cartPanel');
+    const cartOverlay = document.getElementById('cartOverlay');
 
-    const popupsContainer = document.getElementById('purchasePopupsContainer');
-    function showPurchasePopup(text){ const popup = document.createElement('div'); popup.className='purchase-popup'; popup.innerHTML = `<strong>Recent order</strong><div style="font-size:13px;margin-top:6px">${text}</div>`; popupsContainer.appendChild(popup); setTimeout(()=>{ popup.style.transition='opacity .3s, transform .3s'; popup.style.opacity='0'; popup.style.transform='translateY(12px)'; setTimeout(()=>popup.remove(),350)}, 3000 + Math.random()*2000); }
-    function randomPurchase(){ const r = DATA[Math.floor(Math.random()*DATA.length)]; const m = r.menu[Math.floor(Math.random()*r.menu.length)]; const minutesAgo = Math.floor(Math.random()*10)+1; const names = ['Riya','Arjun','Sneha','Dev','Maya','Anik','Priya']; const city = ['Delhi','Mumbai','Bengaluru','Chennai','Kolkata']; const text = `${names[Math.floor(Math.random()*names.length)]} from ${city[Math.floor(Math.random()*city.length)]} just ordered ${m.item} from ${r.name} — ${minutesAgo} mins ago`; showPurchasePopup(text); }
-    function scheduleRandomPurchase(){ const interval = 40000 + Math.random()*50000; setTimeout(()=>{ randomPurchase(); scheduleRandomPurchase(); }, interval); }
-    setTimeout(scheduleRandomPurchase, 5000);
+    function saveCart(){ localStorage.setItem('gg_cart', JSON.stringify(CART)); }
+    function renderCartCount(){ document.getElementById('cartCount').textContent = CART.reduce((s,i)=>s+i.qty,0); }
 
+    function renderCartPanel(){
+      const el = document.getElementById('cartItems'); if(!el) return;
+      if(CART.length===0){ el.innerHTML='<div style="color:var(--muted)">Cart is empty</div>'; updateTotals(); return; }
+      el.innerHTML = CART.map((c,idx)=>`
+        <div class="cart-item">
+          <img src="${c.img}" alt="${c.item}" onerror="this.style.opacity=.6">
+          <div style="flex:1"><strong>${c.item}</strong><div style="color:var(--muted);font-size:13px">${c.restaurant}</div></div>
+          <div>₹${c.price}</div>
+          <div style="margin-left:6px"><button data-idx="${idx}" class="removeBtn">Remove</button></div>
+        </div>
+      `).join('');
+      el.querySelectorAll('.removeBtn').forEach(btn=>btn.addEventListener('click', ()=>{ const i=Number(btn.dataset.idx); CART.splice(i,1); saveCart(); renderCartPanel(); renderCartPage(); renderCartCount(); }));
+      updateTotals();
+    }
+
+    function updateTotals(){
+      const subtotal = CART.reduce((s,i)=>s + i.price * i.qty,0);
+      document.getElementById('cartSubtotal').textContent = '₹' + subtotal;
+      document.getElementById('cartPageSubtotal') && (document.getElementById('cartPageSubtotal').textContent = '₹' + subtotal);
+      const applied = Number(localStorage.getItem('gg_coupon_val')||0);
+      document.getElementById('couponVal').textContent = '₹' + applied;
+      document.getElementById('cartPageCouponVal') && (document.getElementById('cartPageCouponVal').textContent = '₹' + applied);
+      const total = subtotal - applied;
+      document.getElementById('cartTotal').textContent = '₹' + (total>0?total:0);
+      document.getElementById('cartPageTotal') && (document.getElementById('cartPageTotal').textContent = '₹' + (total>0?total:0));
+    }
+
+    function openCartPanel(){
+      cartPanel.classList.add('show'); cartPanel.setAttribute('aria-hidden','false');
+      cartOverlay.classList.add('show'); cartOverlay.setAttribute('aria-hidden','false');
+      renderCartPanel();
+    }
+    function closeCartPanel(){
+      cartPanel.classList.remove('show'); cartPanel.setAttribute('aria-hidden','true');
+      cartOverlay.classList.remove('show'); cartOverlay.setAttribute('aria-hidden','true');
+    }
+
+    document.getElementById('closeCart').addEventListener('click', ()=> closeCartPanel());
+    cartOverlay.addEventListener('click', ()=> closeCartPanel());
+
+    // Cart nav -> show cart page
+    function showCartPage(){
+      showPage('cart');
+      renderCartPage();
+    }
+
+    function renderCartPage(){
+      const el = document.getElementById('cartPageItems');
+      if(!el) return;
+      if(CART.length===0){ el.innerHTML='<div style="color:var(--muted)">Cart is empty</div>'; updateTotals(); return; }
+      el.innerHTML = CART.map((c,idx)=>`
+        <div class="cart-item" style="padding:8px 0">
+          <img src="${c.img}" alt="${c.item}" onerror="this.style.opacity=.6">
+          <div style="flex:1"><strong>${c.item}</strong><div style="color:var(--muted);font-size:13px">${c.restaurant}</div></div>
+          <div>₹${c.price}</div>
+          <div style="margin-left:6px"><button data-idx="${idx}" class="removePageBtn">Remove</button></div>
+        </div>
+      `).join('');
+      el.querySelectorAll('.removePageBtn').forEach(btn=>btn.addEventListener('click', ()=>{ const i=Number(btn.dataset.idx); CART.splice(i,1); saveCart(); renderCartPage(); renderCartPanel(); renderCartCount(); }));
+      updateTotals();
+    }
+
+    // coupon apply (panel)
+    document.getElementById('applyCoupon').addEventListener('click', ()=>{
+      const code = document.getElementById('couponCode').value.trim();
+      if(!code){ alert('Enter coupon code'); return; }
+      if(code.toUpperCase() === COUPON.code){
+        const subtotal = CART.reduce((s,i)=>s + i.price * i.qty,0);
+        const val = Math.round((COUPON.value/100) * subtotal);
+        localStorage.setItem('gg_coupon_val', val);
+        alert('Coupon applied!');
+        updateTotals();
+      } else alert('Invalid coupon');
+    });
+    // coupon (cart page)
+    document.getElementById('cartPageApply').addEventListener('click', ()=>{
+      const code = document.getElementById('cartPageCoupon').value.trim();
+      if(!code){ alert('Enter coupon code'); return; }
+      if(code.toUpperCase() === COUPON.code){
+        const subtotal = CART.reduce((s,i)=>s + i.price * i.qty,0);
+        const val = Math.round((COUPON.value/100) * subtotal);
+        localStorage.setItem('gg_coupon_val', val);
+        alert('Coupon applied!');
+        updateTotals();
+      } else alert('Invalid coupon');
+    });
+
+    // clear & place order actions (panel)
+    document.getElementById('clearCart').addEventListener('click', ()=>{ if(confirm('Clear cart?')){ CART=[]; saveCart(); renderCartPanel(); renderCartPage(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); }});
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{ if(CART.length===0){ alert('Cart is empty'); return; } const pay = document.querySelector('input[name="pay"]:checked').value; alert('Order placed (demo). Payment method: ' + pay); CART=[]; saveCart(); renderCartPanel(); renderCartPage(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); closeCartPanel(); });
+
+    // cart page clear/place
+    document.getElementById('cartPageClear').addEventListener('click', ()=>{ if(confirm('Clear cart?')){ CART=[]; saveCart(); renderCartPage(); renderCartPanel(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); }});
+    document.getElementById('cartPagePlace').addEventListener('click', ()=>{ if(CART.length===0){ alert('Cart is empty'); return; } const pay = document.querySelector('input[name="payPage"]:checked').value; alert('Order placed (demo). Payment method: ' + pay); CART=[]; saveCart(); renderCartPage(); renderCartPanel(); renderCartCount(); localStorage.removeItem('gg_coupon_val'); updateTotals(); showPage('home'); });
+
+    // show panel when clicking add-to-cart (handled above). Also allow opening panel by nav button via small gesture:
+    document.getElementById('navCart').addEventListener('click', (e)=>{ e.preventDefault(); showCartPage(); });
+
+    /* ================= Initial render / persistence ================= */
+    renderCartCount(); renderCartPanel(); renderCartPage(); updateTotals();
     window.addEventListener('beforeunload', ()=> saveCart());
+
+    /* ================= Keyboard support ================= */
+    document.addEventListener('keydown', e=>{
+      if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('card')){
+        navigateToRestaurant(Number(document.activeElement.dataset.id));
+      }
+    });
+
+    /* ================= Purchase popups (8 - 15 sec interval) ================= */
+    const popupsContainer = document.getElementById('purchasePopupsContainer');
+    function showPurchasePopup(text){
+      const popup = document.createElement('div');
+      popup.className = 'purchase-popup';
+      popup.innerHTML = `<strong>Recent order</strong><div style="margin-top:6px">${text}</div>`;
+      popupsContainer.appendChild(popup);
+      // remove after 3-4s
+      setTimeout(()=>{ popup.style.transition='opacity .28s, transform .28s'; popup.style.opacity='0'; popup.style.transform='translateY(12px)'; setTimeout(()=>popup.remove(),320); }, 3000 + Math.random()*1000);
+    }
+    function randomPurchase(){
+      const r = DATA[Math.floor(Math.random()*DATA.length)];
+      const m = r.menu[Math.floor(Math.random()*r.menu.length)];
+      const names = ['Riya','Arjun','Sneha','Dev','Maya','Anik','Priya','Rohan','Isha'];
+      const city = ['Delhi','Mumbai','Bengaluru','Chennai','Kolkata','Pune','Hyderabad'];
+      const minutesAgo = Math.floor(Math.random()*9)+1;
+      const text = `${names[Math.floor(Math.random()*names.length)]} from ${city[Math.floor(Math.random()*city.length)]} ordered ${m.item} from ${r.name} — ${minutesAgo} mins ago`;
+      showPurchasePopup(text);
+    }
+    function scheduleRandomPurchase(){
+      const interval = 8000 + Math.random()*7000; // 8s - 15s
+      setTimeout(()=>{ randomPurchase(); scheduleRandomPurchase(); }, interval);
+    }
+    // start quickly
+    setTimeout(scheduleRandomPurchase, 2500);
+
+    /* ================= Back to Home button on invalid ================= */
+    document.getElementById('backHome').addEventListener('click', ()=> showPage('home'));
+
+    /* ================= small accessibility helpers ================= */
+    // show home on load
+    showPage('home');
   </script>
 </body>
 </html>
+
