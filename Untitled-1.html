@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gourmet Getaway — Discover Local Flavours (Student Project)</title>
+  <meta name="description" content="Gourmet Getaway — demo site to discover restaurants, menus, and order inspiration. Student project inspired by food-tech platforms." />
+  <meta name="keywords" content="food delivery, restaurants, gourmet, menu, Gourmet Getaway" />
+
+  <!-- Google Analytics (GA4) placeholder -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-MEASUREMENT_ID'); // replace with your ID
+  </script>
+
+  <style>
+    :root{--accent:#ff4d4f;--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Roboto,Arial;background:linear-gradient(180deg,#071029 0%, #07122b 60%);color:#e6eef8;min-height:100vh}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;backdrop-filter: blur(6px);position:sticky;top:0;z-index:40}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.5);transform:translateZ(0);}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .title{font-weight:700;font-size:18px;letter-spacing:0.2px}
+    nav a{color:var(--muted);text-decoration:none;margin:0 10px;transition:all .35s ease}
+    nav a:hover{color:var(--accent);transform:translateY(-3px)}
+
+    main{max-width:1200px;margin:28px auto;padding:0 18px}
+    .search{display:flex;gap:10px;margin:18px 0;padding:14px;border-radius:14px;background:var(--card);box-shadow:0 12px 40px rgba(2,6,23,0.6);align-items:center}
+    .search input{flex:1;padding:12px 14px;border-radius:10px;border:none;background:transparent;color:inherit;outline:none;font-size:16px}
+    .search button{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    select{padding:8px 10px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;position:relative;overflow:hidden;cursor:pointer;transition:transform .45s cubic-bezier(.2,.9,.3,1),box-shadow .45s}
+    .card:hover{transform:translateY(-10px) rotate(-0.5deg);box-shadow:0 30px 70px rgba(2,6,23,0.7)}
+    .thumb{width:100%;height:160px;border-radius:10px;object-fit:cover;display:block}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+
+    /* floating text effect */
+    .float{position:absolute;right:-40px;top:8px;font-weight:800;color:rgba(255,255,255,0.06);font-size:72px;transform:rotate(-20deg);pointer-events:none}
+
+    /* page transitions */
+    .page{opacity:0;transform:translateY(12px) scale(.995);transition:all .45s cubic-bezier(.2,.9,.3,1);min-height:200px}
+    .page.active{opacity:1;transform:none}
+
+    footer{padding:28px;text-align:center;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:720px){.thumb{height:120px}.float{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=60" alt="burger logo"/></div>
+      <div>
+        <div class="title">Gourmet Getaway</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Student demo • Discover local flavours</div>
+      </div>
+    </div>
+    <nav aria-label="main navigation">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#about" data-route="about">About</a>
+      <a href="#contact" data-route="contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Search + Controls -->
+    <div class="search">
+      <input id="query" placeholder="Search restaurant or cuisine (e.g., Saffron Biryani)" />
+      <button id="btnSearch">Search</button>
+      <div style="width:14px"></div>
+    </div>
+
+    <div class="controls">
+      <select id="cuisineFilter" aria-label="Cuisine filter">
+        <option value="">All cuisines</option>
+        <option value="Indian">Indian</option>
+        <option value="Fast Food">Fast Food</option>
+        <option value="Chinese">Chinese</option>
+      </select>
+
+      <select id="sortFilter" aria-label="Sort filter">
+        <option value="rating">Top Rated</option>
+        <option value="costAsc">Cost: Low to High</option>
+      </select>
+
+      <div style="margin-left:auto;color:var(--muted);font-size:13px">Demo data • click a card to view menu</div>
+    </div>
+
+    <!-- Pages container (hash routing) -->
+    <section id="home" class="page active">
+      <div class="card-grid" id="results" aria-live="polite"></div>
+      <div class="float">FOOD</div>
+    </section>
+
+    <section id="restaurantPage" class="page" aria-hidden="true"></section>
+    <section id="aboutPage" class="page" aria-hidden="true">
+      <h2>About Gourmet Getaway</h2>
+      <p>Gourmet Getaway is a student-built demo site created to learn website design, analytics integration, SEO, social media linking, and a simple AI-driven workflow. It is inspired by food-tech platforms and is for educational use only.</p>
+    </section>
+
+    <section id="contactPage" class="page" aria-hidden="true">
+      <h2>Contact & Support</h2>
+      <p>For official contact options, visit <a href="https://www.zomato.com/contact" target="_blank" rel="noopener">https://www.zomato.com/contact</a>.</p>
+      <p>Email (demo): student@example.com</p>
+    </section>
+
+    <section id="invalidPage" class="page" aria-hidden="true">
+      <h2>Invalid</h2>
+      <p>The restaurant you searched for was not found. Try another name or browse from the home page.</p>
+      <button id="backHome">Back to Home</button>
+    </section>
+  </main>
+
+  <footer>
+    <div>© Gourmet Getaway — Student Project • Not for commercial use</div>
+    <div style="margin-top:8px">Follow: <a id="fb" href="https://www.facebook.com/zomato/" target="_blank" rel="noopener">Facebook</a> • <a id="ig" href="https://www.instagram.com/zomato" target="_blank" rel="noopener">Instagram</a> • <a id="tw" href="https://x.com/zomatocare" target="_blank" rel="noopener">Twitter/X</a></div>
+  </footer>
+
+  <script>
+    // Demo dataset with menus (up to 10 items each) and online images (Unsplash)
+    const DATA = [
+      {id:1,name:'The Spice Hub',cuisine:'Indian',rating:4.5,cost:350,img:'https://images.unsplash.com/photo-1604908554022-2b4f9a1f7e2d?auto=format&fit=crop&w=800&q=60',alt:'The Spice Hub interior',menu:[
+        {item:'Hyderabadi Biryani',price:220},{item:'Butter Chicken',price:260},{item:'Paneer Tikka',price:180},{item:'Masala Dosa',price:140},{item:'Dal Makhani',price:150},{item:'Rogan Josh',price:300},{item:'Tandoori Roti',price:30},{item:'Gulab Jamun',price:80},{item:'Lassi',price:70},{item:'Kheer',price:90}
+      ]},
+      {id:2,name:'Burger Beam',cuisine:'Fast Food',rating:4.2,cost:220,img:'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=60',alt:'Burger and fries',menu:[
+        {item:'Classic Beef Burger',price:180},{item:'Cheese Burst Burger',price:210},{item:'Veggie Burger',price:150},{item:'Chicken Wings',price:200},{item:'Fries',price:80},{item:'Onion Rings',price:90},{item:'Milkshake',price:120},{item:'Soda',price:50},{item:'Double Patty Burger',price:260},{item:'BBQ Burger',price:230}
+      ]},
+      {id:3,name:'Dragon Palace',cuisine:'Chinese',rating:4.6,cost:420,img:'https://images.unsplash.com/photo-1604908177079-6e8b4d7f1c3b?auto=format&fit=crop&w=800&q=60',alt:'Chinese platter',menu:[
+        {item:'Schezuan Noodles',price:220},{item:'Kung Pao Chicken',price:300},{item:'Veg Manchurian',price:180},{item:'Fried Rice',price:160},{item:'Chilli Prawn',price:380},{item:'Hot & Sour Soup',price:120},{item:'Spring Rolls',price:110},{item:'Honey Chilli Potato',price:150},{item:'Hakka Noodles',price:200},{item:'Gobi 65',price:170}
+      ]},
+      {id:4,name:'Saffron Biryani',cuisine:'Indian',rating:4.7,cost:300,img:'https://images.unsplash.com/photo-1604908177089-5a3f3c1d7a1c?auto=format&fit=crop&w=800&q=60',alt:'Biryani bowl',menu:[
+        {item:'Kolkata Biryani',price:240},{item:'Lucknowi Biryani',price:260},{item:'Cheese Naan',price:90},{item:'Kebab Platter',price:320},{item:'Mirchi Ka Salan',price:120},{item:'Raita',price:40},{item:'Chicken 65',price:180},{item:'Mutton Biryani',price:340},{item:'Veg Biryani',price:180},{item:'Phirni',price:100}
+      ]},
+      {id:5,name:'Pizza Orbit',cuisine:'Fast Food',rating:4.3,cost:280,img:'https://images.unsplash.com/photo-1548365328-8f5d6b1d4e6f?auto=format&fit=crop&w=800&q=60',alt:'pizza hot from oven',menu:[
+        {item:'Margherita',price:220},{item:'Pepperoni',price:260},{item:'Veggie Supreme',price:240},{item:'Farmhouse',price:250},{item:'BBQ Chicken',price:300},{item:'Garlic Bread',price:80},{item:'Veggie Delight',price:210},{item:'Paneer Tikka Pizza',price:270},{item:'Cheesy Dip',price:60},{item:'Tiramisu',price:140}
+      ]}
+    ];
+
+    // Routing + rendering
+    const resultsEl = document.getElementById('results');
+    const pages = {home:document.getElementById('home'),restaurant:document.getElementById('restaurantPage'),about:document.getElementById('aboutPage'),contact:document.getElementById('contactPage'),invalid:document.getElementById('invalidPage')};
+
+    function renderCards(list){
+      resultsEl.innerHTML = list.map(r=>`
+        <article class="card" data-id="${r.id}" tabindex="0">
+          <img class="thumb" src="${r.img}" alt="${r.alt}" loading="lazy" />
+          <h4>${r.name}</h4>
+          <div class="meta"><div>${r.cuisine} • ₹${r.cost} avg</div><div>⭐ ${r.rating}</div></div>
+        </article>
+      `).join('');
+
+      // attach click handlers
+      document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{
+        const id = Number(c.dataset.id); navigateToRestaurant(id);
+      }));
+    }
+
+    // initial
+    renderCards(DATA);
+
+    // Filters
+    document.getElementById('cuisineFilter').addEventListener('change', e=>{
+      applyFilters();
+    });
+    document.getElementById('sortFilter').addEventListener('change', e=>applyFilters());
+
+    function applyFilters(){
+      const cuisine = document.getElementById('cuisineFilter').value;
+      const sort = document.getElementById('sortFilter').value;
+      let filtered = DATA.filter(r=> cuisine? r.cuisine===cuisine : true);
+      if(sort==='costAsc') filtered = filtered.sort((a,b)=>a.cost-b.cost);
+      if(sort==='rating') filtered = filtered.sort((a,b)=>b.rating-a.rating);
+      renderCards(filtered);
+      showPage('home');
+    }
+
+    // Search: if restaurant found navigate to its menu; else invalid
+    document.getElementById('btnSearch').addEventListener('click', ()=>{
+      const q = document.getElementById('query').value.trim().toLowerCase();
+      if(!q){ showPage('home'); return; }
+      const found = DATA.find(r=> r.name.toLowerCase()===q || r.name.toLowerCase().includes(q) || r.cuisine.toLowerCase()===q);
+      if(found){ navigateToRestaurant(found.id); }
+      else{ showPage('invalid'); }
+    });
+
+    function navigateToRestaurant(id){
+      const r = DATA.find(x=>x.id===id); if(!r) return showPage('invalid');
+      const container = document.getElementById('restaurantPage');
+      container.innerHTML = `
+        <div style="display:flex;gap:18px;align-items:flex-start">
+          <img src="${r.img}" alt="${r.alt}" style="width:320px;height:220px;border-radius:12px;object-fit:cover;box-shadow:0 18px 50px rgba(2,6,23,0.6)"/>
+          <div>
+            <h2>${r.name}</h2>
+            <p style="color:var(--muted)">${r.cuisine} • ⭐ ${r.rating} • Avg ₹${r.cost}</p>
+            <p style="max-width:600px">Explore the menu and sample prices below. This is a demo menu for the course project.</p>
+          </div>
+        </div>
+        <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.04)"/>
+        <div id="menuList" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px"></div>
+        <div style="margin-top:18px"><button id="goHome">Back to Home</button></div>
+      `;
+
+      const menuList = document.getElementById('menuList');
+      menuList.innerHTML = r.menu.map(m=>`
+        <div style="padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;backdrop-filter: blur(4px);transition:transform .3s;">
+          <strong>${m.item}</strong>
+          <div style="color:var(--muted);margin-top:6px">Price: ₹${m.price}</div>
+          <div style="margin-top:8px"><button class="orderBtn">Order (demo)</button></div>
+        </div>
+      `).join('');
+
+      // small transitions for menu items
+      menuList.querySelectorAll('div').forEach((el,i)=>{ el.style.transform='translateY(8px)'; setTimeout(()=>el.style.transform='none', 120*i); });
+
+      // back home handler
+      document.getElementById('goHome').addEventListener('click',()=>showPage('home'));
+
+      showPage('restaurant');
+    }
+
+    // Navigation via header links
+    document.querySelectorAll('a[data-route]').forEach(a=>a.addEventListener('click', e=>{ e.preventDefault(); const route = a.getAttribute('data-route'); if(route==='home') showPage('home'); if(route==='about') showPage('about'); if(route==='contact') showPage('contact'); }));
+
+    function showPage(key){
+      // hide all
+      Object.values(pages).forEach(p=>{ p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
+      if(key==='home'){ pages.home.classList.add('active'); pages.home.setAttribute('aria-hidden','false'); window.scrollTo({top:0,behavior:'smooth'}); }
+      else if(key==='restaurant'){ pages.restaurant.classList.add('active'); pages.restaurant.setAttribute('aria-hidden','false'); }
+      else if(key==='about'){ pages.about.classList.add('active'); pages.about.setAttribute('aria-hidden','false'); }
+      else if(key==='contact'){ pages.contact.classList.add('active'); pages.contact.setAttribute('aria-hidden','false'); }
+      else if(key==='invalid'){ pages.invalid.classList.add('active'); pages.invalid.setAttribute('aria-hidden','false'); }
+    }
+
+    // invalid page back button
+    document.getElementById('backHome').addEventListener('click', ()=>showPage('home'));
+
+    // keyboard support: Enter to open focused card
+    document.addEventListener('keydown', e=>{
+      if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('card')){
+        const id = Number(document.activeElement.dataset.id); navigateToRestaurant(id);
+      }
+    });
+
+    // initial show home
+    showPage('home');
+
+    // Accessibility: focus outlines
+    document.addEventListener('click', ()=>document.body.classList.add('used-mouse'));
+  </script>
+</body>
+</html>
