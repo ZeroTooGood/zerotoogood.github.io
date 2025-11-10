@@ -15,7 +15,7 @@
   </script>
 
   <style>
-    /* ---------- Root & reset ---------- */
+    /* ---------- Root and reset ---------- */
     :root{
       --accent:#ff4d4f;
       --muted:#6b7280;
@@ -295,31 +295,31 @@
     /* ================= Dataset (Pexels/Unsplash unique images) ================= */
     const DATA = [
       {id:1,name:'The Spice Hub',cuisine:'Indian',rating:4.5,cost:350,img:'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg',menu:[
-        {item:'Hyderabadi Biryani',price:220,img:'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Butter Chicken',price:260,img:'https://images.pexels.com/photos/4109994/pexels-photo-4109994.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Paneer Tikka',price:180,img:'https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Masala Dosa',price:140,img:'https://images.pexels.com/photos/209540/pexels-photo-209540.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Dal Makhani',price:150,img:'https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Rogan Josh',price:300,img:'https://images.pexels.com/photos/7097/food-dinner-lunch-restaurant.jpg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Tandoori Roti',price:30,img:'https://images.pexels.com/photos/556414/pexels-photo-556414.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Gulab Jamun',price:80,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Hyderabadi Biryani',price:220,img:'https://images.pexels.com/photos/28674660/pexels-photo-28674660.jpeg'},
+        {item:'Butter Chicken',price:260,img:'https://images.pexels.com/photos/7625056/pexels-photo-7625056.jpeg'},
+        {item:'Paneer Tikka',price:180,img:'https://images.pexels.com/photos/3928854/pexels-photo-3928854.png'},
+        {item:'Masala Dosa',price:140,img:'https://images.pexels.com/photos/20422138/pexels-photo-20422138.jpeg'},
+        {item:'Dal Makhani',price:150,img:'https://images.pexels.com/photos/28674561/pexels-photo-28674561.jpeg'},
+        {item:'Rogan Josh',price:300,img:'https://images.pexels.com/photos/9609868/pexels-photo-9609868.jpeg'},
+        {item:'Tandoori Roti',price:30,img:'https://images.pexels.com/photos/12737800/pexels-photo-12737800.jpeg'},
+        {item:'Gulab Jamun',price:80,img:'https://images.pexels.com/photos/8887054/pexels-photo-8887054.jpeg'},
         {item:'Lassi',price:70,img:'https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Kheer',price:90,img:'https://images.pexels.com/photos/1030939/pexels-photo-1030939.jpeg?auto=compress&cs=tinysrgb&h=400'}
+        {item:'Kheer',price:90,img:'https://images.pexels.com/photos/31109623/pexels-photo-31109623.jpeg'}
       ]},
       {id:2,name:'Burger Beam',cuisine:'Fast Food',rating:4.2,cost:220,img:'https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
-        {item:'Classic Beef Burger',price:180,img:'https://images.pexels.com/photos/163956/pexels-photo-163956.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Cheese Burst Burger',price:210,img:'https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Veggie Burger',price:150,img:'https://images.pexels.com/photos/1401664/pexels-photo-1401664.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Classic Beef Burger',price:180,img:'https://images.pexels.com/photos/2702674/pexels-photo-2702674.jpeg'},
+        {item:'Cheese Burst Burger',price:210,img:'https://images.pexels.com/photos/1639562/pexels-photo-1639562.jpeg'},
+        {item:'Veggie Burger',price:150,img:'https://images.pexels.com/photos/4676438/pexels-photo-4676438.jpeg'},
         {item:'Chicken Wings',price:200,img:'https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&h=400'},
         {item:'Fries',price:80,img:'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Onion Rings',price:90,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Onion Rings',price:90,img:'https://images.pexels.com/photos/6941003/pexels-photo-6941003.jpeg'},
         {item:'Milkshake',price:120,img:'https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'Soda',price:50,img:'https://images.unsplash.com/photo-1542444459-db3d3f1a3d3f?auto=format&fit=crop&w=400&q=60'},
-        {item:'Double Patty Burger',price:260,img:'https://images.pexels.com/photos/8136/food-dinner-restaurant-meal.jpg?auto=compress&cs=tinysrgb&h=400'},
-        {item:'BBQ Burger',price:230,img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=60'}
+        {item:'Soda',price:50,img:'https://images.pexels.com/photos/104509/pexels-photo-104509.jpeg'},
+        {item:'Double Patty Burger',price:260,img:'https://images.pexels.com/photos/29368034/pexels-photo-29368034.jpeg'},
+        {item:'BBQ Burger',price:230,img:'https://images.pexels.com/photos/29653152/pexels-photo-29653152.jpeg'}
       ]},
       {id:3,name:'Dragon Palace',cuisine:'Chinese',rating:4.6,cost:420,img:'https://images.pexels.com/photos/357756/pexels-photo-357756.jpeg?auto=compress&cs=tinysrgb&h=600',menu:[
-        {item:'Schezuan Noodles',price:220,img:'https://images.pexels.com/photos/357573/pexels-photo-357573.jpeg?auto=compress&cs=tinysrgb&h=400'},
+        {item:'Schezuan Noodles',price:220,img:'https://images.pexels.com/photos/34599518/pexels-photo-34599518.png'},
         {item:'Kung Pao Chicken',price:300,img:'https://images.pexels.com/photos/46239/sichuan-chicken-46239.jpeg?auto=compress&cs=tinysrgb&h=400'},
         {item:'Veg Manchurian',price:180,img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&h=400'},
         {item:'Fried Rice',price:160,img:'https://images.pexels.com/photos/357575/pexels-photo-357575.jpeg?auto=compress&cs=tinysrgb&h=400'},
@@ -649,4 +649,3 @@
   </script>
 </body>
 </html>
-
